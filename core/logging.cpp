@@ -1,5 +1,6 @@
 #ifdef DEBUG_LOG
 
+#include "core.hpp"
 #include "logging.hpp"
 #include <ctime>
 #include <fstream>
@@ -7,6 +8,10 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+
+#ifdef PLATFORM_WINDOWS
+#include <windows.h>
+#endif
 
 using namespace std;
 
@@ -44,14 +49,34 @@ void logging::log(const char* str) {
 }
 
 void logging::warn(const char* str) {
+#ifdef PLATFORM_WINDOWS
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	FlushConsoleInputBuffer(hConsole);
+	SetConsoleTextAttribute(hConsole, 14);
+#endif
+
 	cout << timestamp() << "WARNING: " << str << endl;
 	out << timestamp() << "WARNING: " << str << endl;
+
+#ifdef PLATFORM_WINDOWS
+	SetConsoleTextAttribute(hConsole, 15);
+#endif
 }
 
 void logging::error(const char* str) {
+#ifdef PLATFORM_WINDOWS
+	HANDLE hConsole = GetStdHandle(STD_ERROR_HANDLE);
+	FlushConsoleInputBuffer(hConsole);
+	SetConsoleTextAttribute(hConsole, 12);
+#endif
+
 	cerr << timestamp() << "ERROR: " << str << endl;
 	out << timestamp() << "ERROR: " << str << endl;
 	err << timestamp() << "ERROR: " << str << endl;
+
+#ifdef PLATFORM_WINDOWS
+	SetConsoleTextAttribute(hConsole, 15);
+#endif
 }
 
 #endif
