@@ -23,7 +23,7 @@ static string timestamp() {
 	time_t t = time(nullptr);
 	ostringstream oss;
 
-	oss << "[" << put_time(std::localtime(&t), "%c %Z") << "]: ";
+	oss << "[" << put_time(std::localtime(&t), "%c") << "]: ";
 
 	return oss.str();
 }
