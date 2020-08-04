@@ -1,7 +1,7 @@
 #RM fix
 ifeq ($(OS),Windows_NT)
 	#for github
-	ifneq ($0,bash)
+	ifeq ($(RM),)
 		#Windows 7:
 		#RM=del /y
 
