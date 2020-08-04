@@ -10,17 +10,20 @@ jobs:
   windows-debug:
     runs-on: windows-latest
     steps:
-    - name: make windows-debug
-      run: make windows-debug
+      - uses: actions/checkout@v2
+      - name: make windows-debug
+        run: make windows-debug
   
   windows:
     runs-on: windows-latest
     steps:
-    - name: make windows
-      run: make windows
+      - uses: actions/checkout@v2
+      - name: make windows
+        run: make windows
   
   linux:
     runs-on: ubuntu-latest
     steps:
-    - name: make linux
-      run: make linux
+      - uses: actions/checkout@v2
+      - name: make linux
+        run: make linux
