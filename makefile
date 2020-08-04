@@ -56,7 +56,6 @@ $(OUTDIR):
 clean:
 ifeq ($(OS),Windows_NT)
 	$(RM) *.o *.a *.exe
-	rmdir /S /Q $(OUTDIR)
 else ifeq ($(shell uname), Linux)
 	find . -type f -name '*.o' -exec rm -f -r -v {} \;
 	find . -type f -name '*.a' -exec rm -f -r -v {} \;
