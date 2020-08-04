@@ -21,6 +21,13 @@ jobs:
       - name: make windows
         run: make windows
   
+  linux-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: make linux-debug
+        run: make linux-debug
+  
   linux:
     runs-on: ubuntu-latest
     steps:

@@ -20,7 +20,7 @@ windows: $(OBJ)
 	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) $(LIB)
 
 linux: $(OBJ)
-	$(error linux is not yet supported!)
+	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) -L${OUTDIR} -l$(LIBFILE) -Wl,-rpath,'$$ORIGIN'
 
 switch: $(OBJ)
 	$(error switch is not yet supported!)

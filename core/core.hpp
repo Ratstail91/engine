@@ -6,6 +6,8 @@
 	#else
 		#define ENGINE_API __declspec(dllimport)
 	#endif
+#elif defined PLATFORM_LINUX
+	#define ENGINE_API
 #else
-	#error This engine only supports windows!
+	#error This engine doesnt support this platform!
 #endif

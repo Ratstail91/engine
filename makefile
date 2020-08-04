@@ -12,11 +12,14 @@ export GCC=g++
 
 export OUTDIR=out
 
+DEBUG=DEBUG_LOG
+
 #targets
 none:
 	$(error Please select a platform to build for)
 
-windows-debug: export DEFINES += DEBUG_LOG
+windows-debug: clean
+windows-debug: export DEFINES += $(DEBUG)
 windows-debug: windows
 
 windows: export DEFINES += PLATFORM_WINDOWS
@@ -27,8 +30,17 @@ windows: $(OUTDIR)
 	$(MAKE) -C core windows
 	$(MAKE) -C app windows
 
+linux-debug: clean
+linux-debug: export DEFINES += $(DEBUG)
+linux-debug: linux
+
+linux: export DEFINES += PLATFORM_LINUX
+linux: export LIBFILE = engine
+linux: export DLLFILE = engine
+linux: export OUTFILE = app
 linux: $(OUTDIR)
-	$(error linux is not yet supported!)
+	$(MAKE) -C core linux
+	$(MAKE) -C app linux
 
 switch: $(OUTDIR)
 	$(error switch is not yet supported!)

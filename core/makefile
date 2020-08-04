@@ -21,7 +21,7 @@ windows: $(OBJ)
 	$(GCC) -shared -o $(DLL) $^ $(addprefix -D, $(DEFINES)) -Wl,--out-implib,$(LIB)
 
 linux: $(OBJ)
-	$(error linux is not yet supported!)
+	$(GCC) -shared -o $(addprefix $(OUTDIR)/lib,$(addsuffix .so,$(DLLFILE))) $^ $(addprefix -D, $(DEFINES)) -Wl,--out-implib,$(addprefix $(OUTDIR)/lib,$(addsuffix .a,$(LIBFILE)))
 
 switch: $(OBJ)
 	$(error switch is not yet supported!)
