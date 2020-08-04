@@ -14,7 +14,7 @@ jobs:
     - name: configure
       run: ./configure
     - name: make windows-debug
-    - run: make windows-debug
+      run: make windows-debug
   
   windows:
     runs-on: windows-latest
@@ -23,7 +23,7 @@ jobs:
     - name: configure
       run: ./configure
     - name: make windows
-    - run: make windows
+      run: make windows
   
   linux:
     runs-on: ubuntu-latest
