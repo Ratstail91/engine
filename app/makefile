@@ -8,17 +8,16 @@ OBJ=$(addprefix $(OBJDIR)/, $(SRC:.cpp=.o))
 #output
 OUTDIR=../out
 LIB=$(addprefix $(OUTDIR)/,$(LIBFILE))
-DLL=$(addprefix $(OUTDIR)/,$(DLLFILE))
+OUT=$(addprefix $(OUTDIR)/,$(OUTFILE))
 
-#for exporting the dll
-DEFINES+=BUILD_DLL
+INCLUDES += -I../core
 
 #targets
 none:
 	$(error Please select a platform to build for)
 
 windows: $(OBJ)
-	$(GCC) -shared -o $(DLL) $^ $(addprefix -D, $(DEFINES)) -Wl,--out-implib,$(LIB)
+	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) $(LIB)
 
 linux: $(OBJ)
 	$(error linux is not yet supported!)
@@ -29,7 +28,7 @@ switch: $(OBJ)
 $(OBJ): | $(OBJDIR)
 
 $(OBJDIR)/%.o: %.cpp
-	$(GCC) -c -fpic -o $@ $< $(addprefix -D, $(DEFINES))
+	$(GCC) -c -o $@ $< $(INCLUDES) $(addprefix -D, $(DEFINES))
 
 $(OBJDIR):
 	mkdir $(OBJDIR)

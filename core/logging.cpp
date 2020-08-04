@@ -2,6 +2,7 @@
 
 #include "core.hpp"
 #include "logging.hpp"
+
 #include <ctime>
 #include <fstream>
 #include <iomanip>
@@ -15,6 +16,7 @@
 
 using namespace std;
 
+static bool initialized = false;
 static ofstream out;
 static ofstream err;
 
@@ -33,22 +35,34 @@ void logging::init(const char* _out, const char* _err) {
 	out.open(_out);
 	err.open(_err);
 
-	log("Logging started");
+	initialized = true;
+
+	log("Logging initialized");
 }
 
 void logging::quit() {
 	log("Logging finished");
+
+	initialized = false;
 
 	out.close();
 	err.close();
 }
 
 void logging::log(const char* str) {
+	if (!initialized) {
+		error("Logging library not initialized");
+	}
+
 	cout << timestamp() << str << endl;
 	out << timestamp() << str << endl;
 }
 
 void logging::warn(const char* str) {
+	if (!initialized) {
+		error("Logging library not initialized");
+	}
+
 #ifdef PLATFORM_WINDOWS
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	FlushConsoleInputBuffer(hConsole);

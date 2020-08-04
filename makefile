@@ -4,33 +4,34 @@ ifeq ($(OS),Windows_NT)
 #RM=del /y
 
 #Windows 8.1 and up:
-RM=del /S
+export RM=del /S
 endif
 
-#config (top-level make only)
-ifeq ($(MAKELEVEL), 0)
-	ifeq ($(OS),Windows_NT)
-		export DEFINES += PLATFORM_WINDOWS
-		export OUTFILE = main.exe
-	else ifeq ($(shell uname), Linux)
-		export DEFINES += PLATFORM_LINUX
-		export OUTFILE = main
-	endif
-endif
+#for this build sustem
+export GCC=g++
 
-OUTDIR=out
+export OUTDIR=out
 
 #targets
-all: $(OUTDIR)
-	$(MAKE) -C core
+none:
+	$(error Please select a platform to build for)
 
-ifeq ($(MAKELEVEL), 0)
-debug: export DEFINES += DEBUG_LOG
-endif
-debug: rebuild
+windows-debug: export DEFINES += DEBUG_LOG
+windows-debug: windows
 
-rebuild:
-	$(MAKE) -i clean all
+windows: export DEFINES += PLATFORM_WINDOWS
+windows: export LIBFILE = libengine.a
+windows: export DLLFILE = engine.dll
+windows: export OUTFILE = app.exe
+windows: $(OUTDIR)
+	$(MAKE) -C core windows
+	$(MAKE) -C app windows
+
+linux: $(OUTDIR)
+	$(error linux is not yet supported!)
+
+switch: $(OUTDIR)
+	$(error switch is not yet supported!)
 
 $(OUTDIR):
 	mkdir $(OUTDIR)
