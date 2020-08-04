@@ -10,33 +10,17 @@ jobs:
   windows-debug:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: configure
-      run: ./configure
     - name: make windows-debug
       run: make windows-debug
   
   windows:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: configure
-      run: ./configure
     - name: make windows
       run: make windows
   
   linux:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: configure
-      run: ./configure
     - name: make linux
       run: make linux
-  
-  switch:
-   runs-on: windows-latest
-   steps:
-     - uses: actions/checkout@v2
-     - name: configure
-       run: configure
