@@ -1,13 +1,10 @@
 #RM fix
 ifeq ($(OS),Windows_NT)
-	#for github
-	ifeq ($(RM),)
-		#Windows 7:
-		#RM=del /y
+#Windows 7:
+#RM=del /y
 
-		#Windows 8.1 and up:
-		export RM=del /S
-	endif
+#Windows 8.1 and up:
+export RM=del /S
 endif
 
 #for this build sustem
