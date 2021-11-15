@@ -42,6 +42,10 @@ bool logging::getLoggingInitialized() {
 }
 
 void logging::init(const char* _out, const char* _err) {
+	if (initialized) {
+		return;
+	}
+
 	out.open(_out);
 	err.open(_err);
 
@@ -51,6 +55,10 @@ void logging::init(const char* _out, const char* _err) {
 }
 
 void logging::quit() {
+	if (!initialized) {
+		return;
+	}
+
 	log("Logging finished");
 
 	initialized = false;
@@ -61,7 +69,7 @@ void logging::quit() {
 
 void logging::log(const char* str) {
 	if (!initialized) {
-		error("Logging library not initialized");
+		return;
 	}
 
 	cout << timestamp() << str << endl;
@@ -70,7 +78,7 @@ void logging::log(const char* str) {
 
 void logging::warn(const char* str) {
 	if (!initialized) {
-		error("Logging library not initialized");
+		return;
 	}
 
 #ifdef PLATFORM_WINDOWS
@@ -88,6 +96,10 @@ void logging::warn(const char* str) {
 }
 
 void logging::error(const char* str) {
+	if (!initialized) {
+		return;
+	}
+
 #ifdef PLATFORM_WINDOWS
 	HANDLE hConsole = GetStdHandle(STD_ERROR_HANDLE);
 	FlushConsoleInputBuffer(hConsole);
