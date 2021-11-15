@@ -35,7 +35,7 @@ linux-debug: export DEFINES += $(DEBUG)
 linux-debug: linux
 
 linux: export DEFINES += PLATFORM_LINUX
-linux: export LIBFILE = libengine.a
+linux: export LIBFILE = 
 linux: export DLLFILE = libengine.so
 linux: export OUTFILE = app
 linux: $(OUTDIR)

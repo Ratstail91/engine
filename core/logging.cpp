@@ -31,6 +31,10 @@ static string timestamp() {
 }
 
 //API
+bool logging::getLoggingInitialized() {
+	return initialized;
+}
+
 void logging::init(const char* _out, const char* _err) {
 	out.open(_out);
 	err.open(_err);

@@ -21,7 +21,7 @@ windows: $(OBJ)
 	$(GCC) -shared -o $(DLL) $^ $(addprefix -D, $(DEFINES)) -Wl,--out-implib,$(LIB)
 
 linux: $(OBJ)
-	$(GCC) -shared -o $(DLL) $^ $(addprefix -D, $(DEFINES)) -Wl,--out-implib,$(LIB)
+	$(GCC) -shared -o $(DLL) $^ $(addprefix -D, $(DEFINES))
 
 switch: $(OBJ)
 	$(error switch is not yet supported!)

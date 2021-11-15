@@ -25,3 +25,7 @@
 	#define WARN(...)
 	#define ERROR(...)
 #endif
+
+namespace logging {
+	ENGINE_API bool getLoggingInitialized();
+}

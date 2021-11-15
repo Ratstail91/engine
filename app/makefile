@@ -20,7 +20,7 @@ windows: $(OBJ)
 	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) $(LIB)
 
 linux: $(OBJ)
-	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) $(LIB)
+	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) -L$(OUTDIR) -l$(subst lib,,$(DLLFILE:.so=)) -Wl,-rpath,'$$ORIGIN'
 
 switch: $(OBJ)
 	$(error switch is not yet supported!)
