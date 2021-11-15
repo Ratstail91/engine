@@ -8,6 +8,8 @@ int main(int argc, char* argv[]) {
 	LOG_INIT("out.log", "err.log");
 
 	LOG("Hello world");
+	WARN("Warning");
+	ERROR("Error");
 
 	LOG_QUIT();
 

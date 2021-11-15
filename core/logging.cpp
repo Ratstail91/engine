@@ -10,9 +10,15 @@
 #include <sstream>
 #include <string>
 
+//for windows
 #ifdef PLATFORM_WINDOWS
 #include <windows.h>
 #endif
+
+//for linux/cygwin
+const char* YELLOW = "\033[0;33m";
+const char* RED = "\033[0;31m";
+const char* NOCOLOR = "\033[0;0m";
 
 using namespace std;
 
@@ -73,8 +79,8 @@ void logging::warn(const char* str) {
 	SetConsoleTextAttribute(hConsole, 14);
 #endif
 
-	cout << timestamp() << "WARNING: " << str << endl;
-	out << timestamp() << "WARNING: " << str << endl;
+	cout << YELLOW << timestamp() << str << NOCOLOR << endl;
+	out << timestamp() << str << endl;
 
 #ifdef PLATFORM_WINDOWS
 	SetConsoleTextAttribute(hConsole, 15);
@@ -88,9 +94,9 @@ void logging::error(const char* str) {
 	SetConsoleTextAttribute(hConsole, 12);
 #endif
 
-	cerr << timestamp() << "ERROR: " << str << endl;
-	out << timestamp() << "ERROR: " << str << endl;
-	err << timestamp() << "ERROR: " << str << endl;
+	cerr << RED << timestamp() << str << NOCOLOR << endl;
+	out << timestamp() << str << endl;
+	err << timestamp() << str << endl;
 
 #ifdef PLATFORM_WINDOWS
 	SetConsoleTextAttribute(hConsole, 15);
