@@ -17,10 +17,10 @@ none:
 	$(error Please select a platform to build for)
 
 windows: $(OBJ)
-	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) $(LIB)
+	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) -L$(OUTDIR) -lengine
 
 linux: $(OBJ)
-	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) -L${OUTDIR} -l$(LIBFILE) -Wl,-rpath,'$$ORIGIN'
+	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) -L$(OUTDIR) -l$(LIBFILE) -Wl,-rpath,'$$ORIGIN'
 
 switch: $(OBJ)
 	$(error switch is not yet supported!)

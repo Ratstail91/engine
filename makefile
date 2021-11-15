@@ -4,7 +4,7 @@ ifeq ($(OS),Windows_NT)
 #RM=del /y
 
 #Windows 8.1 and up:
-export RM=del /S
+export RM=del /S #Not needed with cygwin
 endif
 
 #for this build sustem
@@ -12,7 +12,7 @@ export GCC=g++
 
 export OUTDIR=out
 
-DEBUG=DEBUG_LOG
+DEBUG += DEBUG_LOG
 
 #targets
 none:
