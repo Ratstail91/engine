@@ -17,10 +17,10 @@ none:
 	$(error Please select a platform to build for)
 
 windows: $(OBJ)
-	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) -L$(OUTDIR) -lengine
+	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) $(LIB)
 
 linux: $(OBJ)
-	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) -L$(OUTDIR) -l$(LIBFILE) -Wl,-rpath,'$$ORIGIN'
+	$(GCC) -o $(OUT) $^ $(addprefix -D, $(DEFINES)) $(LIB)
 
 switch: $(OBJ)
 	$(error switch is not yet supported!)
@@ -32,15 +32,3 @@ $(OBJDIR)/%.o: %.cpp
 
 $(OBJDIR):
 	mkdir $(OBJDIR)
-
-.PHONY: clean
-
-clean:
-ifeq ($(OS),Windows_NT)
-	$(RM) *.o *.a *.exe
-else ifeq ($(shell uname), Linux)
-	find . -type f -name *.o -exec rm -f -r -v {} \;
-	find . -type f -name *.a -exec rm -f -r -v {} \;
-endif
-
-rebuild: clean all

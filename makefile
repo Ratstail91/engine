@@ -4,7 +4,7 @@ ifeq ($(OS),Windows_NT)
 #RM=del /y
 
 #Windows 8.1 and up:
-export RM=del /S #Not needed with cygwin
+#export RM=del /S
 endif
 
 #for this build sustem
@@ -35,8 +35,8 @@ linux-debug: export DEFINES += $(DEBUG)
 linux-debug: linux
 
 linux: export DEFINES += PLATFORM_LINUX
-linux: export LIBFILE = engine
-linux: export DLLFILE = engine
+linux: export LIBFILE = libengine.a
+linux: export DLLFILE = libengine.so
 linux: export OUTFILE = app
 linux: $(OUTDIR)
 	$(MAKE) -C core linux
@@ -51,11 +51,16 @@ $(OUTDIR):
 .PHONY: clean
 
 clean:
-ifeq ($(OS),Windows_NT)
-	$(RM) *.o *.a *.exe
+ifeq ($(findstring CYGWIN, $(shell uname)),CYGWIN)
+	find . -type f -name '*.o' -exec rm -f -r -v {} \;
+	find . -type f -name '*.a' -exec rm -f -r -v {} \;
+	find . -empty -type d -delete
 else ifeq ($(shell uname), Linux)
 	find . -type f -name '*.o' -exec rm -f -r -v {} \;
 	find . -type f -name '*.a' -exec rm -f -r -v {} \;
-	rm $(OUTDIR)/* -f
 	find . -empty -type d -delete
+else ifeq ($(OS),Windows_NT)
+	$(RM) *.o *.a *.exe 
+else
+	@echo "Deletion failed - what platform is this?"
 endif
